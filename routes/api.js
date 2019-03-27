@@ -1,8 +1,15 @@
 'use strict';
+
+//MODULS
+
 const express = require('express');
 const router = express.Router();
 
+// MODELS
+
 const Employee = require('../models/Employee');
+
+// API ROUTER
 
 router.get('/employees', async (req,res,next) =>{
   try {
