@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcrypt');
 
-const User = require('../models/user');
+const Admin = require('../models/admin');
 
 const { isLoggedIn, isNotLoggedIn, validationLoggin } = require('../helpers/middlewares');
 
@@ -13,7 +13,7 @@ router.get('/me', isLoggedIn(), (req, res, next) => {
 router.post('/login', isNotLoggedIn(), validationLoggin(), (req, res, next) => {
   const { username, password } = req.body;
 
-  User.findOne({
+  Admin.findOne({
       username
     })
     .then((user) => {
@@ -23,7 +23,7 @@ router.post('/login', isNotLoggedIn(), validationLoggin(), (req, res, next) => {
         err.statusMessage = 'Not Found';
         next(err)
       }
-      if (bcrypt.compareSync(password, user.password)) {
+      if (bcrypt.compareSync(password, admin.password)) {
         req.session.currentUser = user;
         return res.status(200).json(user);
       } else {
@@ -39,7 +39,7 @@ router.post('/login', isNotLoggedIn(), validationLoggin(), (req, res, next) => {
 router.post('/signup', isNotLoggedIn(), validationLoggin(), (req, res, next) => {
   const { username, password } = req.body;
 
-  User.findOne({
+  Admin.findOne({
       username
     }, 'username')
     .then((userExists) => {
@@ -53,15 +53,15 @@ router.post('/signup', isNotLoggedIn(), validationLoggin(), (req, res, next) => 
       const salt = bcrypt.genSaltSync(10);
       const hashPass = bcrypt.hashSync(password, salt);
 
-      const newUser = new User({
+      const newAdmin = new Admin({
         username,
         password: hashPass,
       });
       
-      return newUser.save().then(() => {
+      return newAdmin.save().then(() => {
         // TODO delete password 
-        req.session.currentUser = newUser;
-        res.status(200).json(newUser);
+        req.session.currentUser = newAdmin;
+        res.status(200).json(newAdmin);
       });
     })
     .catch(next);
