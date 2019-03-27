@@ -1,6 +1,8 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
+const ObjectId = Schema.Types.ObjectId;
+
 const employeeSchema = new Schema({
   username: {
     type: String,
@@ -35,72 +37,58 @@ const employeeSchema = new Schema({
   schedule: {
     monday: [{
       initHour: {
-        type: Number,
-        required: true
+        type: Number
       },
       endHour: {
-        type: Number,
-        required: true
+        type: Number
       }
     }],
     tuesday: [{
       initHour: {
-        type: Number,
-        required: true
+        type: Number
       },
       endHour: {
-        type: Number,
-        required: true
+        type: Number
       }
     }],
     wednesday: [{
       initHour: {
-        type: Number,
-        required: true
+        type: Number
       },
       endHour: {
-        type: Number,
-        required: true
+        type: Number
       }
     }],
     thursday: [{
       initHour: {
-        type: Number,
-        required: true
+        type: Number
       },
       endHour: {
-        type: Number,
-        required: true
+        type: Number
       }
     }],
     friday: [{
       initHour: {
-        type: Number,
-        required: true
+        type: Number
       },
       endHour: {
-        type: Number,
-        required: true
+        type: Number
       }
     }],
     saturday: [{
       initHour: {
-        type: Number,
-        required: true
+        type: Number
       },
       endHour: {
-        type: Number,
-        required: true
+        type: Number
       }
     }],
     sunday: [{
       initHour: {
-        type: Number,
-        required: true
+        type: Number
       },
       endHour: {
-        type: Number,
-        required: true
+        type: Number
       }
     }],
   },

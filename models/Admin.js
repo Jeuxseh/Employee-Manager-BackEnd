@@ -18,19 +18,19 @@ const adminSchema = new Schema({
   }],
   company: {
     type: String,
-    required: true,
+    // required: true,
   },
   phone: {
     type:  Number,
-    required: true,
+    // required: true,
   },
   address: {
     type: String,
-    required: true,
+    // required: true,
   },
   email: {
     type: String,
-    required: true,
+    // required: true,
   }
 });
 
