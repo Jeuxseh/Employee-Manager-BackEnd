@@ -4,6 +4,31 @@ const router = express.Router();
 
 const Employee = require('../models/Employee');
 
+router.get('/employees', async (req,res,next) =>{
+  try {
+    const allEmployees = await Employee.find();
+    if(!allEmployees.length){
+      res.status(404);
+      res.json({ message: 'employees not found'});
+      return;
+    }
+    res.json(allEmployees);
+  } catch (error){
+    next(error);
+  }
+})
+
+router.get('/employees/:id', async (req, res, next) => {
+  const {id} = req.params;
+  try {
+    const oneEmployee = await Employee.findById(id);
+    res.status(200);
+    res.json(oneEmployee);
+  } catch (error) {
+    next(error);
+  }
+})
+
 router.post('/employee', async (req, res, next) => {
   const employee = req.body;
   console.log(employee);
