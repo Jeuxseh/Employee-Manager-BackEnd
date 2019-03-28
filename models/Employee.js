@@ -4,6 +4,12 @@ const Schema = mongoose.Schema;
 const ObjectId = Schema.Types.ObjectId;
 
 const employeeSchema = new Schema({
+  adminId:{
+    type: ObjectId,
+    ref: 'Admin',
+    require: true
+  },
+
   username: {
     type: String,
     required: true,
