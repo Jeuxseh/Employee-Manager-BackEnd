@@ -37,7 +37,7 @@ router.post('/login', isNotLoggedIn(), validationLoggin(), (req, res, next) => {
 });
 
 router.post('/signup', isNotLoggedIn(), validationLoggin(), (req, res, next) => {
-  const { username, password } = req.body;
+  const { username, password, phone, email, company, address } = req.body;
 
   Admin.findOne({
       username
@@ -56,6 +56,10 @@ router.post('/signup', isNotLoggedIn(), validationLoggin(), (req, res, next) => 
       const newAdmin = new Admin({
         username,
         password: hashPass,
+        phone, 
+        company,
+        email,
+        address
       });
       
       return newAdmin.save().then(() => {

@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-const ObjectId = Schema.Types.ObjectId;
 
 const adminSchema = new Schema({
   username: {
@@ -13,20 +12,20 @@ const adminSchema = new Schema({
     required: true,
   },
   company: {
-    type: String,
-    // required: true,
+    type: String, 
+    default: 'HOLAAA'
   },
   phone: {
-    type:  Number,
-    // required: true,
+    type: Number,
+    required: true,
   },
   address: {
     type: String,
-    // required: true,
+    required: true,
   },
   email: {
     type: String,
-    // required: true,
+    required: true,
   }
 });
 
