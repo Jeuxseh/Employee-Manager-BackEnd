@@ -19,7 +19,16 @@ router.get('/employees', async (req, res, next) => {
     res.json(myEmployees);
   } catch (error) {
     next(error)
+  }
+})
 
+router.get('/user', async (req, res, next) => {
+  const { _id } = req.session.currentUser;
+  try {
+    const currentUser = await Admin.find({_id: _id})
+    res.json(currentUser);
+  } catch (error) {
+    next(error)
   }
 })
 
@@ -55,29 +64,29 @@ router.post('/employee', async (req, res, next) => {
 
 router.put('/employee/:id', async (req, res, next) => {
   let employeeData = req.body;
-  const {id} = req.params;
+  const { id } = req.params;
   if (!employeeData.username || !employeeData.email || !employeeData.phone || !employeeData.dni || !employeeData.address) {
     res.status(400);
     res.json({ message: 'some field is missing' });
     return;
   }
   try {
-    const editedEmployee = await Employee.findByIdAndUpdate(id, employeeData, {new:true});
+    const editedEmployee = await Employee.findByIdAndUpdate(id, employeeData, { new: true });
     res.status(200);
-    res.json({ message: 'Employee Updated', data: editedEmployee})
+    res.json({ message: 'Employee Updated', data: editedEmployee })
 
   } catch (error) {
     next(error);
   }
-  
+
 });
 
 router.delete('/employee/:id', async (req, res, next) => {
-  const {id} = req.params;
+  const { id } = req.params;
   try {
     const deletedEmployee = await Employee.findByIdAndDelete(id);
     res.status(200);
-    res.json({ message: 'Employee Deleted', data: deletedEmployee});
+    res.json({ message: 'Employee Deleted', data: deletedEmployee });
   } catch (error) {
     next(error);
   }

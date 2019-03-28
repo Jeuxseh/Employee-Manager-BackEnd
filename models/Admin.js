@@ -12,10 +12,6 @@ const adminSchema = new Schema({
     type: String,
     required: true,
   },
-  // employees: [{
-  //   type: ObjectId,
-  //   ref: 'Employee'
-  // }],
   company: {
     type: String,
     // required: true,
