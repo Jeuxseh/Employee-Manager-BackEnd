@@ -23,7 +23,7 @@ router.get('/employees', async (req, res, next) => {
   }
 })
 
-router.get('/employees/:id', async (req, res, next) => {
+router.get('/employee/:id', async (req, res, next) => {
   const { id } = req.params;
   try {
     const oneEmployee = await Employee.findById(id);
@@ -47,6 +47,37 @@ router.post('/employee', async (req, res, next) => {
     res.status(200);
     res.json(newEmployee);
 
+  } catch (error) {
+    next(error);
+  }
+})
+
+
+router.put('/employee/:id', async (req, res, next) => {
+  let employeeData = req.body;
+  const {id} = req.params;
+  if (!employeeData.username || !employeeData.email || !employeeData.phone || !employeeData.dni || !employeeData.address) {
+    res.status(400);
+    res.json({ message: 'some field is missing' });
+    return;
+  }
+  try {
+    const editedEmployee = await Employee.findByIdAndUpdate(id, employeeData, {new:true});
+    res.status(200);
+    res.json({ message: 'Employee Updated', data: editedEmployee})
+
+  } catch (error) {
+    next(error);
+  }
+  
+});
+
+router.delete('/employee/:id', async (req, res, next) => {
+  const {id} = req.params;
+  try {
+    const deletedEmployee = await Employee.findByIdAndDelete(id);
+    res.status(200);
+    res.json({ message: 'Employee Deleted', data: deletedEmployee});
   } catch (error) {
     next(error);
   }
