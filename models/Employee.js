@@ -41,62 +41,62 @@ const employeeSchema = new Schema({
     required: true,
   },
   schedule: {
-    monday: [{
+    monday: {
       initHour: {
         type: String
       },
       endHour: {
         type: String
       }
-    }],
-    tuesday: [{
+    },
+    tuesday: {
       initHour: {
         type: String
       },
       endHour: {
         type: String
       }
-    }],
-    wednesday: [{
+    },
+    wednesday: {
       initHour: {
         type: String
       },
       endHour: {
         type: String
       }
-    }],
-    thursday: [{
+    },
+    thursday: {
       initHour: {
         type: String
       },
       endHour: {
         type: String
       }
-    }],
-    friday: [{
+    },
+    friday: {
       initHour: {
         type: String
       },
       endHour: {
         type: String
       }
-    }],
-    saturday: [{
+    },
+    saturday: {
       initHour: {
         type: String
       },
       endHour: {
         type: String
       }
-    }],
-    sunday: [{
+    },
+    sunday: {
       initHour: {
         type: String
       },
       endHour: {
         type: String
       }
-    }],
+    },
   },
 });
 
