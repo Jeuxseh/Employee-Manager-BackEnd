@@ -12,8 +12,8 @@ const adminSchema = new Schema({
     required: true,
   },
   company: {
-    type: String, 
-    default: 'HOLAAA'
+    type: String,
+    required: true,
   },
   phone: {
     type: Number,
