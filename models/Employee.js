@@ -43,58 +43,58 @@ const employeeSchema = new Schema({
   schedule: {
     monday: [{
       initHour: {
-        type: Number
+        type: String
       },
       endHour: {
-        type: Number
+        type: String
       }
     }],
     tuesday: [{
       initHour: {
-        type: Number
+        type: String
       },
       endHour: {
-        type: Number
+        type: String
       }
     }],
     wednesday: [{
       initHour: {
-        type: Number
+        type: String
       },
       endHour: {
-        type: Number
+        type: String
       }
     }],
     thursday: [{
       initHour: {
-        type: Number
+        type: String
       },
       endHour: {
-        type: Number
+        type: String
       }
     }],
     friday: [{
       initHour: {
-        type: Number
+        type: String
       },
       endHour: {
-        type: Number
+        type: String
       }
     }],
     saturday: [{
       initHour: {
-        type: Number
+        type: String
       },
       endHour: {
-        type: Number
+        type: String
       }
     }],
     sunday: [{
       initHour: {
-        type: Number
+        type: String
       },
       endHour: {
-        type: Number
+        type: String
       }
     }],
   },
