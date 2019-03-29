@@ -12,16 +12,16 @@ const adminSchema = new Schema({
     required: true,
   },
   company: {
-    type: String,
+    type: String, 
     required: true,
   },
   phone: {
     type: Number,
-    required: true,
+    // required: true,
   },
   address: {
     type: String,
-    required: true,
+    // required: true,
   },
   email: {
     type: String,

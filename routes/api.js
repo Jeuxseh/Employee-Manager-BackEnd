@@ -81,6 +81,25 @@ router.put('/employee/:id', async (req, res, next) => {
 
 });
 
+router.put('/user', async (req,res,next)=> {
+  let currentUserData = req.body;
+  const { _id } = req.session.currentUser;
+  if (!currentUserData.username || !currentUserData.email || !currentUserData.phone || !currentUserData.company || !currentUserData.address) {
+    res.status(400);
+    res.json({ message: 'Some field is missing' });
+    return;
+  }
+  try {
+    const editedUser = await Admin.findByIdAndUpdate(_id, currentUserData, {new:true});
+    req.session.currentUser = editedUser;
+    res.status(200)
+    res.json({message: 'User Data', data: editedUser})
+  } catch (error) {
+    next(error);
+  }
+
+})
+
 router.delete('/employee/:id', async (req, res, next) => {
   const { id } = req.params;
   try {
