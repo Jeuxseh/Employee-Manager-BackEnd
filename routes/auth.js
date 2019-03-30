@@ -14,8 +14,8 @@ router.post('/login', isNotLoggedIn(), validationLoggin(), (req, res, next) => {
   const { username, password } = req.body;
 
   Admin.findOne({
-      username
-    })
+    username
+  })
     .then((user) => {
       if (!user) {
         const err = new Error('Not Found');
@@ -40,33 +40,33 @@ router.post('/signup', isNotLoggedIn(), validationLoggin(), (req, res, next) => 
   const { username, password, phone, email, company, address } = req.body;
 
   Admin.findOne({
-      username
-    }, 'username')
+    username
+  }, 'username')
     .then((userExists) => {
       if (userExists) {
         const err = new Error('Unprocessable Entity');
         err.status = 422;
         err.statusMessage = 'username-not-unique';
         next(err);
+      } else {
+
+        const salt = bcrypt.genSaltSync(10);
+        const hashPass = bcrypt.hashSync(password, salt);
+
+        const newAdmin = new Admin({
+          username,
+          password: hashPass,
+          phone,
+          company,
+          email,
+          address
+        });
+        return newAdmin.save().then(() => {
+          // TODO delete password 
+          req.session.currentUser = newAdmin;
+          res.status(200).json(newAdmin);
+        });
       }
-
-      const salt = bcrypt.genSaltSync(10);
-      const hashPass = bcrypt.hashSync(password, salt);
-
-      const newAdmin = new Admin({
-        username,
-        password: hashPass,
-        phone, 
-        company,
-        email,
-        address
-      });
-      
-      return newAdmin.save().then(() => {
-        // TODO delete password 
-        req.session.currentUser = newAdmin;
-        res.status(200).json(newAdmin);
-      });
     })
     .catch(next);
 });
