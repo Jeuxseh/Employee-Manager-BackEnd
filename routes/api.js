@@ -74,11 +74,9 @@ router.put('/employee/:id', async (req, res, next) => {
     const editedEmployee = await Employee.findByIdAndUpdate(id, employeeData, { new: true });
     res.status(200);
     res.json({ message: 'Employee Updated', data: editedEmployee })
-
   } catch (error) {
     next(error);
   }
-
 });
 
 router.put('/user', async (req,res,next)=> {
