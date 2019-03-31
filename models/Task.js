@@ -10,14 +10,14 @@ const taskSchema = new Schema({
     type: Date,
     required: true,
   },
-  initialTime: {
-    type: Number,
-    required: true,
-  },
-  endTime: {
-    type:  Number,
-    required: true,
-  }
+  // initialTime: {
+  //   type: Number,
+  //   required: true,
+  // },
+  // endTime: {
+  //   type:  Number,
+  //   required: true,
+  // }
 });
 
 const Task = mongoose.model('Task', taskSchema);
