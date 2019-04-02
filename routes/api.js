@@ -47,9 +47,10 @@ router.post('/employee', async (req, res, next) => {
   let employeeData = req.body;
   employeeData.adminId = req.session.currentUser._id;
   if (!employeeData.username || !employeeData.lastname || !employeeData.password || !employeeData.email || !employeeData.phone || !employeeData.dni || !employeeData.address) {
-    res.status(400);
-    res.json({ message: 'some field is missing' });
-    return;
+    return res.status(400).json({
+          error:true,
+          code:"Some field is missing"
+        })
   }
   try {
     const newEmployee = await Employee.create(employeeData);
@@ -66,9 +67,10 @@ router.put('/employee/:id', async (req, res, next) => {
   let employeeData = req.body;
   const { id } = req.params;
   if (!employeeData.username || !employeeData.lastname || !employeeData.email || !employeeData.phone || !employeeData.dni || !employeeData.address) {
-    res.status(400);
-    res.json({ message: 'some field is missing' });
-    return;
+    return res.status(400).json({
+      error:true,
+      code:"Some field is missing"
+    })
   }
   try {
     const editedEmployee = await Employee.findByIdAndUpdate(id, employeeData, { new: true });
@@ -83,9 +85,10 @@ router.put('/user', async (req, res, next) => {
   let currentUserData = req.body;
   const { _id } = req.session.currentUser;
   if (!currentUserData.username || !currentUserData.email || !currentUserData.phone || !currentUserData.company || !currentUserData.address) {
-    res.status(400);
-    res.json({ message: 'Some field is missing' });
-    return;
+    return res.status(400).json({
+      error:true,
+      code:"Some field is missing"
+    })
   }
   try {
     const editedUser = await Admin.findByIdAndUpdate(_id, currentUserData, { new: true });

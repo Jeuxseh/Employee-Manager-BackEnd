@@ -26,7 +26,7 @@ exports.validationLoggin = () => (req, res, next) => {
   if (!username || !password) {
     return res.status(422).json({
       error:true,
-      code:"some field is missing"
+      code:"Some field is missing"
     })
   } else {
     next();

@@ -20,7 +20,7 @@ router.post('/login', isNotLoggedIn(), validationLoggin(), (req, res, next) => {
       if (!user) {
         return res.status(404).json({
           error:true,
-          code:"user does not exist"
+          code:"User does not exist"
         })
         
       }
@@ -30,7 +30,7 @@ router.post('/login', isNotLoggedIn(), validationLoggin(), (req, res, next) => {
       } else {
         return res.status(401).json({
           error:true,
-          code:"password does not match"
+          code:"Incorrect password"
         })
       }
     })
@@ -47,7 +47,7 @@ router.post('/signup', isNotLoggedIn(), validationLoggin(), (req, res, next) => 
       if (userExists) {
         return res.status(422).json({
           error:true,
-          code:"username already in use"
+          code:"Username already in use"
         })
       } else {
 
