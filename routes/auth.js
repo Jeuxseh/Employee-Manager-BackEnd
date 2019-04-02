@@ -3,6 +3,7 @@ const router = express.Router();
 const bcrypt = require('bcrypt');
 
 const Admin = require('../models/Admin');
+const Employee = require('../models/Employee');
 
 const { isLoggedIn, isNotLoggedIn, validationLoggin } = require('../helpers/middlewares');
 
@@ -18,20 +19,35 @@ router.post('/login', isNotLoggedIn(), validationLoggin(), (req, res, next) => {
   })
     .then((user) => {
       if (!user) {
-        return res.status(404).json({
-          error:true,
-          code:"User does not exist"
-        })
-        
-      }
-      if (bcrypt.compareSync(password, user.password)) {
-        req.session.currentUser = user;
-        return res.status(200).json(user);
+        Employee.findOne({ dni: username })
+          .then((employee) => {
+            if (!employee) {
+              return res.status(404).json({
+                error: true,
+                code: "User does not exist"
+              })
+            } else {
+              if (password === employee.password) {
+                req.session.currentUser = employee;
+                return res.status(200).json(employee)
+              } else {
+                return res.status(401).json({
+                  error: true,
+                  code: "Incorrect password"
+                })
+              }
+            }
+          })
       } else {
-        return res.status(401).json({
-          error:true,
-          code:"Incorrect password"
-        })
+        if (bcrypt.compareSync(password, user.password)) {
+          req.session.currentUser = user;
+          return res.status(200).json(user);
+        } else {
+          return res.status(401).json({
+            error: true,
+            code: "Incorrect password"
+          })
+        }
       }
     })
     .catch(next);
@@ -46,8 +62,8 @@ router.post('/signup', isNotLoggedIn(), validationLoggin(), (req, res, next) => 
     .then((userExists) => {
       if (userExists) {
         return res.status(422).json({
-          error:true,
-          code:"Username already in use"
+          error: true,
+          code: "Username already in use"
         })
       } else {
 

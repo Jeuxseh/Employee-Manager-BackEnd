@@ -45,8 +45,10 @@ router.get('/employee/:id', async (req, res, next) => {
 
 router.post('/employee', async (req, res, next) => {
   let employeeData = req.body;
+  const splicedUserName = employeeData.username.slice(0,3)
+  employeeData.password = splicedUserName + employeeData.dni;
   employeeData.adminId = req.session.currentUser._id;
-  if (!employeeData.username || !employeeData.lastname || !employeeData.password || !employeeData.email || !employeeData.phone || !employeeData.dni || !employeeData.address) {
+  if (!employeeData.username || !employeeData.lastname || !employeeData.email || !employeeData.phone || !employeeData.dni || !employeeData.address) {
     return res.status(400).json({
           error:true,
           code:"Some field is missing"
