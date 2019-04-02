@@ -9,11 +9,13 @@ const employeeSchema = new Schema({
     ref: 'Admin',
     require: true
   },
-
   username: {
     type: String,
     required: true,
-    unique: true
+  },
+  lastname: {
+    type: String,
+    required: true,
   },
   dni: {
     type: String,
