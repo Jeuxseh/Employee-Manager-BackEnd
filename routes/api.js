@@ -72,7 +72,7 @@ router.put('/employee/:id', async (req, res, next) => {
   }
   try {
     const editedEmployee = await Employee.findByIdAndUpdate(id, employeeData, { new: true });
-    res.status(200);
+    res.status(200);  
     res.json({ message: 'Employee Updated', data: editedEmployee })
   } catch (error) {
     next(error);

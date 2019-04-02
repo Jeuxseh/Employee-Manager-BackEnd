@@ -47,6 +47,7 @@ router.post('/signup', isNotLoggedIn(), validationLoggin(), (req, res, next) => 
         const err = new Error('Unprocessable Entity');
         err.status = 422;
         err.statusMessage = 'username-not-unique';
+        return res.json({message: err.statusMessage})
         next(err);
       } else {
 
