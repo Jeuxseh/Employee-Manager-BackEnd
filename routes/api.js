@@ -85,20 +85,32 @@ router.put('/employee/:id', async (req, res, next) => {
 
 router.put('/user', async (req, res, next) => {
   let currentUserData = req.body;
-  const { _id } = req.session.currentUser;
-  if (!currentUserData.username || !currentUserData.email || !currentUserData.phone || !currentUserData.company || !currentUserData.address) {
-    return res.status(400).json({
-      error:true,
-      code:"Some field is missing"
-    })
-  }
-  try {
-    const editedUser = await Admin.findByIdAndUpdate(_id, currentUserData, { new: true });
-    req.session.currentUser = editedUser;
-    res.status(200)
-    res.json({ message: 'User Data', data: editedUser })
-  } catch (error) {
-    next(error);
+  const { _id, adminId } = req.session.currentUser;
+  if(!adminId){
+    if (!currentUserData.username || !currentUserData.email || !currentUserData.phone || !currentUserData.company || !currentUserData.address) {
+      return res.status(400).json({
+        error:true,
+        code:"Some field is missing"
+      })
+    }
+    try {
+      const editedUser = await Admin.findByIdAndUpdate(_id, currentUserData, { new: true });
+      req.session.currentUser = editedUser;
+      res.status(200)
+      res.json({ message: 'User Data', data: editedUser })
+    } catch (error) {
+      next(error);
+    }
+  } else {
+    console.log(currentUserData)
+    try{
+      const editedUser = await Employee.findByIdAndUpdate(_id, currentUserData, {new: true});
+      req.session.currentUser = editedUser;
+      res.status(200)
+      res.json({message: 'User Data', data: editedUser })
+    } catch (error){
+      next(error)
+    }
   }
 
 })
