@@ -11,6 +11,7 @@ const employeeSchema = new Schema({
   },
   imageUrl:{
     type: String,
+    default: 'https://res.cloudinary.com/mbcloud/image/upload/v1552231082/event-up-events/clmegdwiztitevgptcwi.png'
   },
   username: {
     type: String,
