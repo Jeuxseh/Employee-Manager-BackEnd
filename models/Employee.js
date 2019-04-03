@@ -9,6 +9,9 @@ const employeeSchema = new Schema({
     ref: 'Admin',
     require: true
   },
+  imageUrl:{
+    type: String,
+  },
   username: {
     type: String,
     required: true,
