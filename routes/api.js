@@ -54,6 +54,15 @@ router.post('/employee', async (req, res, next) => {
           code:"Some field is missing"
         })
   }
+  Employee.findOne({dni: employeeData.dni}, 'dni')
+    .then((dniUsed) => {
+      if(dniUsed){
+        return res.status(422).json({
+          error: true,
+          code: "DNI already in use"
+        })
+      }
+    })
   try {
     const newEmployee = await Employee.create(employeeData);
     res.status(200);
