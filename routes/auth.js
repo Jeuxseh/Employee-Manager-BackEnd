@@ -66,7 +66,6 @@ router.post('/signup', isNotLoggedIn(), validationLoggin(), (req, res, next) => 
           code: "Username already in use"
         })
       } else {
-
         const salt = bcrypt.genSaltSync(10);
         const hashPass = bcrypt.hashSync(password, salt);
 
